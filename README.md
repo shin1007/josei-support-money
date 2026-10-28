@@ -8,6 +8,8 @@
 - [レポート本体](./index.html)
 - [団体ファイル](./orgs.html)
 - [人物ファイル](./people.html)
+- [自治体マップ（47都道府県・20政令市）](./map.html)
+- テーマ別レポート：[男性支援と女性支援の比較](./men_support.html) ／ [子の連れ去り（いわゆる「実子誘拐」）](./child_abduction.html) ／ [「女性の権利が乏しい」と言われる指標の検証](./women_rights.html) ／ [売買春・アダルト動画の規制と社会的変化](./sex_trade.html)
 - [PDF版](./report.pdf)
 - [出典元URL（分類・検索）](./sources.html)
 
