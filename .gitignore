@@ -5,3 +5,4 @@ scripts/
 report/
 *.pyc
 __pycache__/
+.vercel
