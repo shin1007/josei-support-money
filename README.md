@@ -9,6 +9,6 @@
 - [団体ファイル](./orgs.html)
 - [人物ファイル](./people.html)
 - [PDF版](./report.pdf)
-- [出典ファイルについて](./sources.html)
+- [出典元URL（分類・検索）](./sources.html)
 
 調査方法や出典はレポート本体に記載しています。
