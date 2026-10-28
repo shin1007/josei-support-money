@@ -4,9 +4,11 @@
 
 ## レポートを読む
 
+- [Vercel公開サイト](https://josei-support-money.vercel.app/)
 - [レポート本体](./index.html)
 - [団体ファイル](./orgs.html)
 - [人物ファイル](./people.html)
 - [PDF版](./report.pdf)
+- [出典ファイルについて](./sources.html)
 
 調査方法や出典はレポート本体に記載しています。
