@@ -9,6 +9,8 @@
   const ents = [];
   for (const [k, v] of Object.entries(reg.people)) if (k.length >= 3) ents.push([k, 'people', v]);
   for (const [k, v] of Object.entries(reg.orgs)) if (k.length >= 3) ents.push([k, 'orgs', v]);
+  // 名簿の表記ゆれ（例: 塚﨑 → 塚崎）は、正規化した氏名の人物ファイルへつなぐ
+  for (const [raw, key] of Object.entries(reg.alias || {})) if (reg.people[key]) ents.push([raw, 'people', reg.people[key], key]);
   ents.sort((a, b) => b[0].length - a[0].length);
   const byName = new Map(ents.map(e => [e[0], e]));
   const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -28,11 +30,12 @@
       while ((m = rx.exec(t))) {
         const e = byName.get(m[0]);
         const card = node.parentElement && node.parentElement.closest('.card');
-        if (card && card.id === m[0]) continue; // 自分自身のカード内はリンクしない
+        const target = e[3] || m[0];
+        if (card && card.id === target) continue; // 自分自身のカード内はリンクしない
         frag.append(t.slice(last, m.index));
         const a = document.createElement('a');
         a.className = 'ent'; a.textContent = m[0]; a.dataset.kind = e[1];
-        a.href = `${e[1]}.html#${encodeURIComponent(m[0])}`;
+        a.href = `${e[1]}.html#${encodeURIComponent(target)}`;
         frag.append(a); last = m.index + m[0].length; wraps++;
       }
       if (last) { frag.append(t.slice(last)); node.replaceWith(frag); }
@@ -46,8 +49,8 @@
     const a = ev.target.closest('a.ent'); if (!a) return;
     const e = byName.get(a.textContent); if (!e) return;
     const v = e[2];
-    tip.innerHTML = `<b>${e[0]}</b>` + (e[1] === 'people'
-      ? row('立場', v['立場']) + row('国の会議', v['会議']) + row('所属政党', v['政党']) + row('政治資金', v['政治資金'] && '収支報告書に記載あり')
+    tip.innerHTML = `<b>${e[3] || e[0]}</b>` + (e[1] === 'people'
+      ? row('立場', v['立場']) + row('経歴', v['経歴']) + row('国の会議', v['会議']) + row('所属政党', v['政党']) + row('政治資金', v['政治資金'] && '収支報告書に記載あり')
       : row('正式名称', v['正式名称']) + row('公費', v['公費']) + row('関係人物', v['人物']) + row('収入', v['収入']))
       + `<div class="more">クリックで${e[1] === 'people' ? '人物' : '団体'}ファイルへ</div>`;
     tip.style.display = 'block';
