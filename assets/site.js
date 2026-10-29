@@ -126,5 +126,24 @@
     };
     tags.forEach(t => { const b = document.createElement('button'); b.textContent = t; b.onclick = () => { on.has(t) ? on.delete(t) : on.add(t); b.classList.toggle('on'); apply(); }; chips.append(b); });
     q.after(chips); q.oninput = apply; apply();
+
+    // data-sort のあるカード（人物ファイルの関係団体数）は並べ替えできる
+    const label = cards[0].dataset.sortLabel;
+    if (label) {
+      const parent = cards[0].parentNode, end = cards[cards.length - 1].nextSibling;
+      const sorter = document.createElement('div'); sorter.className = 'chips';
+      const opts = [['標準の順', null], [`${label}が多い順`, -1], [`${label}が少ない順`, 1]];
+      opts.forEach(([t, dir], i) => {
+        const b = document.createElement('button'); b.textContent = t; if (i === 0) b.classList.add('on');
+        b.onclick = () => {
+          const list = dir === null ? cards : [...cards].sort((a, c) => (a.dataset.sort - c.dataset.sort) * dir);
+          list.forEach(c => parent.insertBefore(c, end));
+          sorter.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+        };
+        sorter.append(b);
+      });
+      const cap = document.createElement('span'); cap.textContent = '並び順:'; cap.style.cssText = 'font-size:12px;color:#8a8984;align-self:center';
+      sorter.prepend(cap); chips.after(sorter);
+    }
   }
 })();

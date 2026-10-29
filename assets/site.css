@@ -19,3 +19,4 @@ th.asc::after{content:" ▲";opacity:.8}th.desc::after{content:" ▼";opacity:.8
 .chips button.on{background:#2a78d6;color:#fff;border-color:#2a78d6}
 @media (prefers-color-scheme:dark){.sitenav{background:rgba(26,26,25,.94);border-color:#353532}.sitenav a{color:#f0efec}
 #tip,#totop{background:#222221;color:#f0efec;border-color:#353532}.tfilter{background:#222221;color:#f0efec;border-color:#353532}}
+.ties{font-size:12px;color:#8a8984}
